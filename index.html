@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Karim Kachouh — Tech Consultant</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --bg: #0B0C0F;
+    --surface: #13151A;
+    --surface2: #1C1F27;
+    --border: #252830;
+    --accent: #4DFFA0;
+    --accent2: #4D9FFF;
+    --text: #F0F2F7;
+    --muted: #6B7280;
+    --muted2: #9CA3AF;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Noise overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.4;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* NAV */
+  nav {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: rgba(11,12,15,0.92);
+    backdrop-filter: blur(12px);
+    z-index: 100;
+  }
+
+  nav .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .nav-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 1.1rem;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
+
+  .nav-logo span { color: var(--accent); }
+
+  .nav-links {
+    display: flex;
+    gap: 2rem;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted2);
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--accent); }
+
+  /* HERO */
+  .hero {
+    padding: 7rem 0 5rem;
+    position: relative;
+  }
+
+  .hero-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .hero-tag::before {
+    content: '';
+    width: 24px;
+    height: 1px;
+    background: var(--accent);
+    display: inline-block;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 5rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 1.5rem;
+  }
+
+  h1 .line2 {
+    color: var(--muted);
+  }
+
+  h1 .highlight {
+    color: var(--accent);
+    position: relative;
+  }
+
+  .hero-desc {
+    font-size: 1.05rem;
+    color: var(--muted2);
+    max-width: 520px;
+    line-height: 1.75;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--accent);
+    color: #0B0C0F;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    padding: 0.85rem 1.75rem;
+    border-radius: 4px;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-primary:hover {
+    background: #33FF8A;
+    transform: translateY(-1px);
+  }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: transparent;
+    color: var(--text);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    padding: 0.85rem 1.75rem;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--muted2);
+    transform: translateY(-1px);
+  }
+
+  /* STATS BAR */
+  .stats-bar {
+    display: flex;
+    gap: 0;
+    margin-top: 4rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .stat {
+    flex: 1;
+    padding: 1.25rem 1.5rem;
+    border-right: 1px solid var(--border);
+  }
+
+  .stat:last-child { border-right: none; }
+
+  .stat-number {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--text);
+    line-height: 1;
+    margin-bottom: 0.3rem;
+  }
+
+  .stat-number span { color: var(--accent); }
+
+  .stat-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  /* SECTIONS */
+  section {
+    padding: 5rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .section-label::before {
+    content: '';
+    width: 16px;
+    height: 1px;
+    background: var(--accent);
+  }
+
+  h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 3rem;
+    line-height: 1.2;
+  }
+
+  /* SERVICES */
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .service-card {
+    background: var(--surface);
+    padding: 2rem;
+    transition: background 0.2s;
+    position: relative;
+  }
+
+  .service-card:hover { background: var(--surface2); }
+
+  .service-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 6px;
+    background: rgba(77,255,160,0.08);
+    border: 1px solid rgba(77,255,160,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+    font-size: 1rem;
+  }
+
+  .service-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+  }
+
+  .service-desc {
+    font-size: 0.85rem;
+    color: var(--muted2);
+    line-height: 1.65;
+    margin-bottom: 1.25rem;
+    font-weight: 300;
+  }
+
+  .service-price {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  /* PROJECTS */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .project-card {
+    background: var(--surface);
+    padding: 2rem 2.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1.5rem;
+    align-items: start;
+    transition: background 0.2s;
+    cursor: default;
+  }
+
+  .project-card:hover { background: var(--surface2); }
+
+  .project-tag-row {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.75rem;
+  }
+
+  .tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    background: var(--surface2);
+    color: var(--muted2);
+    border: 1px solid var(--border);
+  }
+
+  .tag.featured {
+    background: rgba(77,255,160,0.08);
+    color: var(--accent);
+    border-color: rgba(77,255,160,0.2);
+  }
+
+  .project-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.5rem;
+  }
+
+  .project-desc {
+    font-size: 0.875rem;
+    color: var(--muted2);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .project-meta {
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .project-year {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.06em;
+  }
+
+  /* CREDENTIALS */
+  .creds-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 1rem;
+  }
+
+  .cred-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.5rem;
+    transition: border-color 0.2s;
+  }
+
+  .cred-card:hover { border-color: rgba(77,255,160,0.3); }
+
+  .cred-issuer {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+  }
+
+  .cred-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.3;
+  }
+
+  /* CONTACT */
+  .contact-block {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 3rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: center;
+  }
+
+  .contact-heading {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+  }
+
+  .contact-heading span { color: var(--accent); }
+
+  .contact-sub {
+    font-size: 0.875rem;
+    color: var(--muted2);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+
+  .contact-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .contact-link {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    text-decoration: none;
+    color: var(--text);
+    transition: all 0.2s;
+  }
+
+  .contact-link:hover {
+    border-color: rgba(77,255,160,0.3);
+    transform: translateX(4px);
+  }
+
+  .contact-link-icon {
+    font-size: 1.1rem;
+    width: 20px;
+    text-align: center;
+  }
+
+  .contact-link-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    display: block;
+    margin-bottom: 0.1rem;
+  }
+
+  .contact-link-value {
+    font-size: 0.875rem;
+    color: var(--text);
+  }
+
+  /* FOOTER */
+  footer {
+    padding: 2rem 0;
+    border-top: 1px solid var(--border);
+  }
+
+  footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .footer-links a {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s;
+  }
+
+  .footer-links a:hover { color: var(--accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero > .container > * {
+    animation: fadeUp 0.6s ease forwards;
+    opacity: 0;
+  }
+
+  .hero > .container > *:nth-child(1) { animation-delay: 0.1s; }
+  .hero > .container > *:nth-child(2) { animation-delay: 0.2s; }
+  .hero > .container > *:nth-child(3) { animation-delay: 0.3s; }
+  .hero > .container > *:nth-child(4) { animation-delay: 0.4s; }
+  .hero > .container > *:nth-child(5) { animation-delay: 0.5s; }
+
+  /* GLOW */
+  .glow-dot {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,255,160,0.06) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+  }
+
+  @media (max-width: 640px) {
+    .stats-bar { flex-wrap: wrap; }
+    .stat { border-right: none; border-bottom: 1px solid var(--border); min-width: 50%; }
+    .contact-block { grid-template-columns: 1fr; }
+    .project-card { grid-template-columns: 1fr; }
+    .project-meta { text-align: left; }
+    nav .nav-links { display: none; }
+  }
+</style>>
+</head>
+<body>
+
+<nav>
+  <div class="container">
+    <a href="#" class="nav-logo">KK<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#services">Services</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#credentials">Credentials</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="container" style="position:relative">
+    <div class="glow-dot"></div>
+    <div class="hero-tag">Available for freelance work</div>
+    <h1>
+      Karim Kachouh<br>
+      <span class="line2">Tech Consultant &</span><br>
+      <span class="highlight">Builder.</span>
+    </h1>
+    <p class="hero-desc">
+      MIS graduate based in Beirut. I build websites, automate workflows, and help small businesses use technology the right way — fast, clean, and without the agency price tag.
+    </p>
+    <div class="hero-cta">
+      <a href="https://wa.me/96181970562" class="btn-primary" target="_blank">
+        ↗ WhatsApp Me
+      </a>
+      <a href="mailto:Kareemtkachouh@gmail.com" class="btn-secondary">
+        Send an Email
+      </a>
+    </div>
+    <div class="stats-bar">
+      <div class="stat" style="cursor:pointer" onclick="window.open('https://www.youtube.com/@K-TBM','_blank')">
+        <div class="stat-number">200<span>K+</span></div>
+        <div class="stat-label">YouTube Views ↗</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">8<span>K+</span></div>
+        <div class="stat-label">LinkedIn Reads</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">3<span>+</span></div>
+        <div class="stat-label">Certifications</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number">10<span>+</span></div>
+        <div class="stat-label">Clients Served</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="container">
+    <div class="section-label">What I do</div>
+    <h2>Services & Pricing</h2>
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">🌐</div>
+        <div class="service-name">Website Development</div>
+        <div class="service-desc">Clean, functional websites for businesses, personal brands, and student projects. Built fast using modern tools and AI-assisted workflows.</div>
+        <div class="service-price">Starting at $150</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🤖</div>
+        <div class="service-name">AI-Powered Tools</div>
+        <div class="service-desc">Automate repetitive tasks, build smart forms, data pipelines, and dashboards using AI. Perfect for small teams and NGOs.</div>
+        <div class="service-price">Starting at $120</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📊</div>
+        <div class="service-name">Presentations & Reports</div>
+        <div class="service-desc">Professional PowerPoint decks and business reports that communicate clearly. For pitches, projects, and academic submissions.</div>
+        <div class="service-price">Starting at $50</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🖧</div>
+        <div class="service-name">Networking & IT</div>
+        <div class="service-desc">Network topology design, subnetting, IT infrastructure consulting and setup. CCNA-certified knowledge applied to real problems.</div>
+        <div class="service-price">Starting at $75</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">📋</div>
+        <div class="service-name">MIS Consulting</div>
+        <div class="service-desc">Academic project support, systems analysis, database design, and business process consulting for students and small organizations.</div>
+        <div class="service-price">Starting at $80</div>
+      </div>
+      <div class="service-card">
+        <div class="service-icon">🔧</div>
+        <div class="service-name">IT Support & Setup</div>
+        <div class="service-desc">Hardware recommendations, system setup, troubleshooting, and device configuration. Helped clients save $300+ per purchase on average.</div>
+        <div class="service-price">From $30 / session</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="container">
+    <div class="section-label">Work</div>
+    <h2>Selected Projects</h2>
+    <div class="projects-list">
+
+      <div class="project-card">
+        <div>
+          <div class="project-tag-row">
+            <span class="tag featured">Capstone</span>
+            <span class="tag">.NET Core MVC</span>
+            <span class="tag">SQL Server</span>
+            <span class="tag">Tesseract OCR</span>
+          </div>
+          <div class="project-name">Sahelli — AI E-Government Platform</div>
+          <div class="project-desc">Full-stack e-government web app allowing Lebanese citizens to request official documents online. Integrated Tesseract OCR to automatically extract and validate text from uploaded documents — cutting manual review time by ~40%. Led complete system architecture, database design (SQL Server), and UX from scratch. Built on .NET Core MVC with Bootstrap.</div>
+        </div>
+        <div class="project-meta">
+          <div class="project-year">2024–2025</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="project-tag-row">
+            <span class="tag featured">Paid Client Work</span>
+            <span class="tag">PHP</span>
+            <span class="tag">MySQL</span>
+            <span class="tag">Full Stack</span>
+          </div>
+          <div class="project-name">Hadi Kassem Goods — Wholesale B2B Platform</div>
+          <div class="project-desc">End-to-end website for a Lebanese wholesale supplier operating since 2004. Built a product catalog (PHP + MySQL), online order submission system, and contact management. Custom design system with warm brand identity. Client can receive and manage wholesale orders digitally for the first time.</div>
+        </div>
+        <div class="project-meta">
+          <div class="project-year">2026</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="project-tag-row">
+            <span class="tag featured">Paid Client Work</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">Dashboard</span>
+          </div>
+          <div class="project-name">AutoService — Automotive Service Management System</div>
+          <div class="project-desc">Multi-role service management platform for an automotive company. Features customer request flows (emergency + scheduled), staff task assignment, full service lifecycle tracking (Pending → Assigned → Pickup → In Service → Delivery → Completed), billing history, and admin dashboard. Built with vanilla JS, localStorage-based auth, and a fully custom UI.</div>
+        </div>
+        <div class="project-meta">
+          <div class="project-year">2026</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="project-tag-row">
+            <span class="tag featured">Personal Project</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">Wikipedia API</span>
+          </div>
+          <div class="project-name">MIMIR — Distraction-Free Research Engine</div>
+          <div class="project-desc">Client-side search engine built on the Wikipedia API, designed for focused academic research. Features exact-match filtering, newest-first sorting, live suggestions, and a Norse mythology-inspired interface. Built to replace noisy general-purpose search for students who need depth over distraction.</div>
+        </div>
+        <div class="project-meta">
+          <div class="project-year">2025</div>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="project-tag-row">
+            <span class="tag featured">200K+ Views</span>
+            <span class="tag">YouTube</span>
+            <span class="tag">LinkedIn</span>
+            <span class="tag">Arabic Tech</span>
+          </div>
+          <div class="project-name">KTBM — Arabic Tech Content Channel</div>
+          <div class="project-desc">Tech content in Arabic — no fluff, no philosophy. Publishing 3× per week covering AI, semiconductors, on-device AI, NPUs, and battery-aware design. 200K+ YouTube views, 8K+ LinkedIn reads, 350+ reactions. One of the few Arabic-language channels breaking down silicon and AI hardware for a general audience.</div>
+        </div>
+        <div class="project-meta">
+          <div class="project-year" style="margin-bottom:8px">2025–Now</div>
+          <a href="https://www.youtube.com/@K-TBM" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--accent);text-decoration:none;letter-spacing:0.04em;">↗ Watch</a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div>
+          <div class="project-tag-row">
+            <span class="tag featured">Consulting</span>
+            <span class="tag">Google Sheets</span>
+            <span class="tag">Looker Studio</span>
+            <span class="tag">Data Automation</span>
+          </div>
+          <div class="project-name">Municipal Data System — Chhime Municipality</div>
+          <div class="project-desc">Digitized a fully paper-based beneficiary management system for a Lebanese municipality. Reduced manual data-entry errors by ~90% and saved 72+ hours of processing time. Built intake forms, validation workflows, ID assignment logic, and Looker Studio dashboards. Trained non-technical municipal staff to operate the system independently.</div>
+        </div>
+        <div class="project-meta">
+          <div class="project-year">2025</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CREDENTIALS -->
+<section id="credentials">
+  <div class="container">
+    <div class="section-label">Credentials</div>
+    <h2>Education & Certifications</h2>
+    <div class="creds-grid">
+      <div class="cred-card">
+        <div class="cred-issuer">Beirut Arab University</div>
+        <div class="cred-name">B.S. Management Information Systems</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-issuer">Cisco</div>
+        <div class="cred-name">CCNA v7 — Networking</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-issuer">Google / Coursera</div>
+        <div class="cred-name">IT Support Professional Certificate</div>
+      </div>
+      <div class="cred-card">
+        <div class="cred-issuer">Google / Coursera</div>
+        <div class="cred-name">Data Analytics Professional Certificate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="container">
+    <div class="section-label">Get in touch</div>
+    <h2>Let's work together</h2>
+    <div class="contact-block">
+      <div>
+        <div class="contact-heading">Have a project<br>in mind<span>?</span></div>
+        <p class="contact-sub">Whether it's a website, an automation, a presentation, or just a tech problem you can't crack — reach out. Fast response, honest advice, fair prices.</p>
+      </div>
+      <div class="contact-links">
+        <a href="https://wa.me/96181970562" class="contact-link" target="_blank">
+          <div>
+            <span class="contact-link-label">WhatsApp</span>
+            <span class="contact-link-value">+961 81 970 562</span>
+          </div>
+        </a>
+        <a href="mailto:Kareemtkachouh@gmail.com" class="contact-link">
+          <div>
+            <span class="contact-link-label">Email</span>
+            <span class="contact-link-value">Kareemtkachouh@gmail.com</span>
+          </div>
+        </a>
+        <a href="https://www.linkedin.com/in/karim-kachouh-17b1211aa" class="contact-link" target="_blank">
+          <div>
+            <span class="contact-link-label">LinkedIn</span>
+            <span class="contact-link-value">Karim Kachouh</span>
+          </div>
+        </a>
+        <a href="https://github.com/Kareem-Kachouh" class="contact-link" target="_blank">
+          <div>
+            <span class="contact-link-label">GitHub</span>
+            <span class="contact-link-value">Kareem-Kachouh</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <span class="footer-copy">© 2026 Karim Kachouh — Beirut, Lebanon</span>
+    <div class="footer-links">
+      <a href="https://github.com/Kareem-Kachouh" target="_blank">GitHub</a>
+      <a href="https://www.linkedin.com/in/karim-kachouh-17b1211aa" target="_blank">LinkedIn</a>
+      <a href="mailto:Kareemtkachouh@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
