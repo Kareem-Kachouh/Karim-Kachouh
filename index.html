@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Karim Kachouh — Tech Consultant</title>
+<title>Karim Kachouh — Tech Consultant & Builder</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
 
@@ -21,7 +21,6 @@
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
 
   body {
@@ -33,7 +32,6 @@
     overflow-x: hidden;
   }
 
-  /* Noise overlay */
   body::before {
     content: '';
     position: fixed;
@@ -52,7 +50,7 @@
     z-index: 1;
   }
 
-  /* NAV */
+  /* ── NAV ── */
   nav {
     padding: 1.5rem 0;
     border-bottom: 1px solid var(--border);
@@ -98,7 +96,60 @@
 
   .nav-links a:hover { color: var(--accent); }
 
-  /* HERO */
+  /* Hamburger */
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+    z-index: 200;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: all 0.3s ease;
+    transform-origin: center;
+  }
+
+  .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+  .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(11,12,15,0.97);
+    backdrop-filter: blur(16px);
+    z-index: 150;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2.5rem;
+  }
+
+  .mobile-menu.open { display: flex; }
+
+  .mobile-menu a {
+    font-family: 'Syne', sans-serif;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: -0.02em;
+    transition: color 0.2s;
+  }
+
+  .mobile-menu a:hover { color: var(--accent); }
+
+  /* ── HERO ── */
   .hero {
     padding: 7rem 0 5rem;
     position: relative;
@@ -124,6 +175,21 @@
     display: inline-block;
   }
 
+  .availability-dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    display: inline-block;
+    margin-right: 2px;
+    animation: pulse-dot 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+
   h1 {
     font-family: 'Syne', sans-serif;
     font-size: clamp(2.8rem, 6vw, 5rem);
@@ -133,19 +199,13 @@
     margin-bottom: 1.5rem;
   }
 
-  h1 .line2 {
-    color: var(--muted);
-  }
-
-  h1 .highlight {
-    color: var(--accent);
-    position: relative;
-  }
+  h1 .line2 { color: var(--muted); }
+  h1 .highlight { color: var(--accent); }
 
   .hero-desc {
     font-size: 1.05rem;
     color: var(--muted2);
-    max-width: 520px;
+    max-width: 540px;
     line-height: 1.75;
     margin-bottom: 2.5rem;
     font-weight: 300;
@@ -173,10 +233,7 @@
     transition: all 0.2s;
   }
 
-  .btn-primary:hover {
-    background: #33FF8A;
-    transform: translateY(-1px);
-  }
+  .btn-primary:hover { background: #33FF8A; transform: translateY(-1px); }
 
   .btn-secondary {
     display: inline-flex;
@@ -194,12 +251,9 @@
     transition: all 0.2s;
   }
 
-  .btn-secondary:hover {
-    border-color: var(--muted2);
-    transform: translateY(-1px);
-  }
+  .btn-secondary:hover { border-color: var(--muted2); transform: translateY(-1px); }
 
-  /* STATS BAR */
+  /* ── STATS ── */
   .stats-bar {
     display: flex;
     gap: 0;
@@ -236,7 +290,7 @@
     letter-spacing: 0.08em;
   }
 
-  /* SECTIONS */
+  /* ── SECTIONS ── */
   section {
     padding: 5rem 0;
     border-top: 1px solid var(--border);
@@ -270,7 +324,72 @@
     line-height: 1.2;
   }
 
-  /* SERVICES */
+  /* ── ABOUT ── */
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    align-items: start;
+  }
+
+  .about-bio {
+    font-size: 1rem;
+    color: var(--muted2);
+    line-height: 1.85;
+    font-weight: 300;
+  }
+
+  .about-bio p + p { margin-top: 1rem; }
+
+  .about-bio strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .about-right {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .about-fact {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 1.25rem 1.5rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    transition: border-color 0.2s;
+  }
+
+  .about-fact:hover { border-color: rgba(77,255,160,0.25); }
+
+  .about-fact-icon {
+    font-size: 1.1rem;
+    line-height: 1;
+    margin-top: 2px;
+    flex-shrink: 0;
+  }
+
+  .about-fact-text {
+    font-size: 0.875rem;
+    color: var(--muted2);
+    line-height: 1.6;
+    font-weight: 300;
+  }
+
+  .about-fact-text strong {
+    display: block;
+    font-family: 'Syne', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--text);
+    margin-bottom: 0.2rem;
+    letter-spacing: -0.01em;
+  }
+
+  /* ── SERVICES ── */
   .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -286,6 +405,8 @@
     padding: 2rem;
     transition: background 0.2s;
     position: relative;
+    display: flex;
+    flex-direction: column;
   }
 
   .service-card:hover { background: var(--surface2); }
@@ -315,8 +436,20 @@
     font-size: 0.85rem;
     color: var(--muted2);
     line-height: 1.65;
-    margin-bottom: 1.25rem;
+    margin-bottom: 1rem;
     font-weight: 300;
+    flex: 1;
+  }
+
+  .service-scope {
+    font-size: 0.78rem;
+    color: var(--muted);
+    line-height: 1.55;
+    margin-bottom: 1rem;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.02em;
+    border-left: 2px solid var(--border);
+    padding-left: 0.75rem;
   }
 
   .service-price {
@@ -324,9 +457,10 @@
     font-size: 0.75rem;
     color: var(--accent);
     letter-spacing: 0.04em;
+    margin-top: auto;
   }
 
-  /* PROJECTS */
+  /* ── PROJECTS ── */
   .projects-list {
     display: flex;
     flex-direction: column;
@@ -345,7 +479,6 @@
     gap: 1.5rem;
     align-items: start;
     transition: background 0.2s;
-    cursor: default;
   }
 
   .project-card:hover { background: var(--surface2); }
@@ -388,6 +521,40 @@
     color: var(--muted2);
     line-height: 1.7;
     font-weight: 300;
+    margin-bottom: 1rem;
+  }
+
+  .project-links {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .project-link {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.7rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border: 1px solid rgba(77,255,160,0.2);
+    padding: 0.3rem 0.75rem;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+
+  .project-link:hover {
+    background: rgba(77,255,160,0.08);
+    border-color: rgba(77,255,160,0.4);
+  }
+
+  .project-link.secondary {
+    color: var(--muted2);
+    border-color: var(--border);
+  }
+
+  .project-link.secondary:hover {
+    color: var(--text);
+    border-color: var(--muted);
   }
 
   .project-meta {
@@ -402,7 +569,7 @@
     letter-spacing: 0.06em;
   }
 
-  /* CREDENTIALS */
+  /* ── CREDENTIALS ── */
   .creds-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -435,7 +602,7 @@
     line-height: 1.3;
   }
 
-  /* CONTACT */
+  /* ── CONTACT ── */
   .contact-block {
     background: var(--surface);
     border: 1px solid var(--border);
@@ -489,12 +656,6 @@
     transform: translateX(4px);
   }
 
-  .contact-link-icon {
-    font-size: 1.1rem;
-    width: 20px;
-    text-align: center;
-  }
-
   .contact-link-label {
     font-family: 'DM Mono', monospace;
     font-size: 0.75rem;
@@ -505,12 +666,9 @@
     margin-bottom: 0.1rem;
   }
 
-  .contact-link-value {
-    font-size: 0.875rem;
-    color: var(--text);
-  }
+  .contact-link-value { font-size: 0.875rem; color: var(--text); }
 
-  /* FOOTER */
+  /* ── FOOTER ── */
   footer {
     padding: 2rem 0;
     border-top: 1px solid var(--border);
@@ -529,10 +687,7 @@
     letter-spacing: 0.04em;
   }
 
-  .footer-links {
-    display: flex;
-    gap: 1.5rem;
-  }
+  .footer-links { display: flex; gap: 1.5rem; }
 
   .footer-links a {
     font-family: 'DM Mono', monospace;
@@ -545,7 +700,19 @@
 
   .footer-links a:hover { color: var(--accent); }
 
-  /* ANIMATIONS */
+  /* ── GLOW ── */
+  .glow-dot {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(77,255,160,0.06) 0%, transparent 70%);
+    top: -100px;
+    right: -100px;
+    pointer-events: none;
+  }
+
+  /* ── ANIMATIONS ── */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(20px); }
     to { opacity: 1; transform: translateY(0); }
@@ -562,61 +729,66 @@
   .hero > .container > *:nth-child(4) { animation-delay: 0.4s; }
   .hero > .container > *:nth-child(5) { animation-delay: 0.5s; }
 
-  /* GLOW */
-  .glow-dot {
-    position: absolute;
-    width: 400px;
-    height: 400px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(77,255,160,0.06) 0%, transparent 70%);
-    top: -100px;
-    right: -100px;
-    pointer-events: none;
-  }
-
+  /* ── RESPONSIVE ── */
   @media (max-width: 640px) {
     .stats-bar { flex-wrap: wrap; }
     .stat { border-right: none; border-bottom: 1px solid var(--border); min-width: 50%; }
-    .contact-block { grid-template-columns: 1fr; }
+    .contact-block { grid-template-columns: 1fr; padding: 2rem; }
     .project-card { grid-template-columns: 1fr; }
     .project-meta { text-align: left; }
+    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     nav .nav-links { display: none; }
+    .hamburger { display: flex; }
+    h1 { font-size: clamp(2.2rem, 10vw, 2.8rem); }
+    .hero { padding: 5rem 0 3rem; }
+    section { padding: 3.5rem 0; }
   }
-</style>>
+</style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav>
   <div class="container">
     <a href="#" class="nav-logo">KK<span>.</span></a>
     <ul class="nav-links">
+      <li><a href="#about">About</a></li>
       <li><a href="#services">Services</a></li>
       <li><a href="#projects">Projects</a></li>
       <li><a href="#credentials">Credentials</a></li>
       <li><a href="#contact">Contact</a></li>
     </ul>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
 
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#about" onclick="closeMenu()">About</a>
+  <a href="#services" onclick="closeMenu()">Services</a>
+  <a href="#projects" onclick="closeMenu()">Projects</a>
+  <a href="#credentials" onclick="closeMenu()">Credentials</a>
+  <a href="#contact" onclick="closeMenu()">Contact</a>
+</div>
+
+<!-- HERO -->
 <div class="hero">
   <div class="container" style="position:relative">
     <div class="glow-dot"></div>
-    <div class="hero-tag">Available for freelance work</div>
+    <div class="hero-tag"><span class="availability-dot"></span> Available for freelance work</div>
     <h1>
       Karim Kachouh<br>
       <span class="line2">Tech Consultant &</span><br>
       <span class="highlight">Builder.</span>
     </h1>
     <p class="hero-desc">
-      MIS graduate based in Beirut. I build websites, automate workflows, and help small businesses use technology the right way — fast, clean, and without the agency price tag.
+      MIS graduate based in Beirut. I build production-grade websites, automate broken workflows, and help businesses in Lebanon actually use technology — without the agency price tag or the six-week timeline.
     </p>
     <div class="hero-cta">
-      <a href="https://wa.me/96181970562" class="btn-primary" target="_blank">
-        ↗ WhatsApp Me
-      </a>
-      <a href="mailto:Kareemtkachouh@gmail.com" class="btn-secondary">
-        Send an Email
-      </a>
+      <a href="https://wa.me/96181970562" class="btn-primary" target="_blank">↗ WhatsApp Me</a>
+      <a href="mailto:Kareemtkachouh@gmail.com" class="btn-secondary">Send an Email</a>
     </div>
     <div class="stats-bar">
       <div class="stat" style="cursor:pointer" onclick="window.open('https://www.youtube.com/@K-TBM','_blank')">
@@ -628,16 +800,69 @@
         <div class="stat-label">LinkedIn Reads</div>
       </div>
       <div class="stat">
-        <div class="stat-number">3<span>+</span></div>
-        <div class="stat-label">Certifications</div>
+        <div class="stat-number">6<span>+</span></div>
+        <div class="stat-label">Projects Shipped</div>
       </div>
       <div class="stat">
-        <div class="stat-number">10<span>+</span></div>
-        <div class="stat-label">Clients Served</div>
+        <div class="stat-number">72<span>h+</span></div>
+        <div class="stat-label">Hours Saved for Clients</div>
       </div>
     </div>
   </div>
 </div>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="container">
+    <div class="section-label">Who I am</div>
+    <h2>A bit about me</h2>
+    <div class="about-grid">
+      <div class="about-bio">
+        <!-- ✏️ REPLACE THIS COPY WITH YOUR OWN WORDS — make it personal, first-person, specific to you -->
+        <p>
+          I'm a <strong>Management Information Systems graduate</strong> from Beirut Arab University with a bias for getting things built. My work sits at the intersection of software, systems, and the kind of practical consulting that actually moves the needle — not slide decks, but shipped products.
+        </p>
+        <p>
+          I've built platforms for Lebanese municipalities, e-commerce systems for wholesale suppliers, service management tools for automotive companies, and a capstone e-government app that cuts document processing by 40%. Alongside that, I run <strong>KTBM</strong> — one of the few Arabic-language tech channels covering AI hardware, NPUs, and semiconductors with depth.
+        </p>
+        <p>
+          <!-- ✏️ ADD SOMETHING PERSONAL HERE — a hobby, a belief, a motivation. This is the line that makes someone remember you. -->
+          I'm based in Beirut and work with clients locally and remotely. If you have a problem that technology can solve, I'll tell you honestly whether I can solve it — and how.
+        </p>
+      </div>
+      <div class="about-right">
+        <div class="about-fact">
+          <div class="about-fact-icon">🎓</div>
+          <div class="about-fact-text">
+            <strong>B.S. Management Information Systems</strong>
+            Beirut Arab University — graduated 2025
+          </div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-icon">📡</div>
+          <div class="about-fact-text">
+            <strong>CCNA v7 Certified</strong>
+            Cisco networking, routing, subnetting, and infrastructure
+          </div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-icon">🎙️</div>
+          <div class="about-fact-text">
+            <strong>KTBM — Arabic Tech Content</strong>
+            200K+ YouTube views covering AI hardware and semiconductors
+          </div>
+        </div>
+        <div class="about-fact">
+          <div class="about-fact-icon">📍</div>
+          <div class="about-fact-text">
+            <strong>Based in Beirut, Lebanon</strong>
+            Working with clients locally and remotely
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
 <!-- SERVICES -->
 <section id="services">
@@ -645,42 +870,55 @@
     <div class="section-label">What I do</div>
     <h2>Services & Pricing</h2>
     <div class="services-grid">
+
       <div class="service-card">
         <div class="service-icon">🌐</div>
         <div class="service-name">Website Development</div>
         <div class="service-desc">Clean, functional websites for businesses, personal brands, and student projects. Built fast using modern tools and AI-assisted workflows.</div>
+        <div class="service-scope">1–5 pages · custom design · mobile-ready · delivered in 5–10 days</div>
         <div class="service-price">Starting at $200</div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">🤖</div>
         <div class="service-name">AI-Powered Tools</div>
-        <div class="service-desc">Automate repetitive tasks, build smart forms, data pipelines, and dashboards using AI. Perfect for small teams and NGOs.</div>
+        <div class="service-desc">Automate repetitive tasks, build smart forms, data pipelines, and dashboards. Built for small teams and NGOs who need results, not complexity.</div>
+        <div class="service-scope">scoped per project · includes documentation · staff training available</div>
         <div class="service-price">Starting at $120</div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">📊</div>
         <div class="service-name">Presentations & Reports</div>
-        <div class="service-desc">Professional PowerPoint decks and business reports that communicate clearly. For pitches, projects, and academic submissions.</div>
+        <div class="service-desc">Professional PowerPoint decks and business reports that communicate clearly. For pitches, client meetings, and academic submissions.</div>
+        <div class="service-scope">up to 20 slides · 2 revision rounds · delivered in 2–3 days</div>
         <div class="service-price">Starting at $50</div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">🖧</div>
         <div class="service-name">Networking & IT</div>
-        <div class="service-desc">Network topology design, subnetting, IT infrastructure consulting and setup. CCNA-certified knowledge applied to real problems.</div>
+        <div class="service-desc">Network topology design, subnetting, infrastructure setup, and IT consulting. CCNA-certified knowledge applied to real problems.</div>
+        <div class="service-scope">topology design · config documentation · on-site or remote</div>
         <div class="service-price">Starting at $75</div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">📋</div>
         <div class="service-name">MIS Consulting</div>
-        <div class="service-desc">Academic project support, systems analysis, database design, and business process consulting for students and small organisations.</div>
-        <div class="service-price">Starting at $50</div>
+        <div class="service-desc">Systems analysis, database design, and business process consulting. For organizations that need to think clearly about their information systems.</div>
+        <div class="service-scope">requirements analysis · ERD + system diagrams · written deliverable</div>
+        <div class="service-price">Starting at $80</div>
       </div>
+
       <div class="service-card">
         <div class="service-icon">🔧</div>
         <div class="service-name">IT Support & Setup</div>
-        <div class="service-desc">Hardware recommendations, system setup, troubleshooting, and device configuration. Helped clients save $300+ per purchase on average.</div>
+        <div class="service-desc">Hardware recommendations, system setup, troubleshooting, and device configuration. Helped clients save $300+ on average by buying the right thing.</div>
+        <div class="service-scope">per session · remote or in-person · same-day response</div>
         <div class="service-price">From $30 / session</div>
       </div>
+
     </div>
   </div>
 </section>
@@ -701,7 +939,11 @@
             <span class="tag">Tesseract OCR</span>
           </div>
           <div class="project-name">Sahelli — AI E-Government Platform</div>
-          <div class="project-desc">Full-stack e-government web app allowing Lebanese citizens to request official documents online. Integrated Tesseract OCR to automatically extract and validate text from uploaded documents — cutting manual review time by ~40%. Led complete system architecture, database design (SQL Server), and UX from scratch. Built on .NET Core MVC with Bootstrap.</div>
+          <div class="project-desc">Full-stack e-government web app allowing Lebanese citizens to request official documents online. Integrated Tesseract OCR to automatically extract and validate text from uploaded documents — cutting manual review time by ~40%. Led complete system architecture, database design (SQL Server), and UX from scratch.</div>
+          <div class="project-links">
+            <a href="[YOUTUBE_UNLISTED_LINK]" class="project-link" target="_blank">▶ Watch Demo</a>
+            <a href="[GITHUB_LINK]" class="project-link secondary" target="_blank">GitHub</a>
+          </div>
         </div>
         <div class="project-meta">
           <div class="project-year">2024–2025</div>
@@ -717,7 +959,10 @@
             <span class="tag">Full Stack</span>
           </div>
           <div class="project-name">Hadi Kassem Goods — Wholesale B2B Platform</div>
-          <div class="project-desc">End-to-end website for a Lebanese wholesale supplier operating since 2004. Built a product catalog (PHP + MySQL), online order submission system, and contact management. Custom design system with warm brand identity. Client can receive and manage wholesale orders digitally for the first time.</div>
+          <div class="project-desc">End-to-end website for a Lebanese wholesale supplier operating since 2004. Product catalog, online order submission, and contact management. The client can now receive and manage wholesale orders digitally for the first time.</div>
+          <div class="project-links">
+            <a href="[YOUTUBE_UNLISTED_LINK]" class="project-link" target="_blank">▶ Watch Demo</a>
+          </div>
         </div>
         <div class="project-meta">
           <div class="project-year">2026</div>
@@ -733,7 +978,11 @@
             <span class="tag">Dashboard</span>
           </div>
           <div class="project-name">AutoService — Automotive Service Management System</div>
-          <div class="project-desc">Multi-role service management platform for an automotive company. Features customer request flows (emergency + scheduled), staff task assignment, full service lifecycle tracking (Pending → Assigned → Pickup → In Service → Delivery → Completed), billing history, and admin dashboard. Built with vanilla JS, localStorage-based auth, and a fully custom UI.</div>
+          <div class="project-desc">Multi-role platform for an automotive company. Customer request flows, staff task assignment, full service lifecycle tracking (Pending → Assigned → In Service → Delivery → Completed), billing history, and admin dashboard. Built with vanilla JS and a fully custom UI.</div>
+          <div class="project-links">
+            <a href="[YOUTUBE_UNLISTED_LINK]" class="project-link" target="_blank">▶ Watch Demo</a>
+            <a href="[GITHUB_LINK]" class="project-link secondary" target="_blank">GitHub</a>
+          </div>
         </div>
         <div class="project-meta">
           <div class="project-year">2026</div>
@@ -748,7 +997,11 @@
             <span class="tag">Wikipedia API</span>
           </div>
           <div class="project-name">MIMIR — Distraction-Free Research Engine</div>
-          <div class="project-desc">Client-side search engine built on the Wikipedia API, designed for focused academic research. Features exact-match filtering, newest-first sorting, live suggestions, and a Norse mythology-inspired interface. Built to replace noisy general-purpose search for students who need depth over distraction.</div>
+          <div class="project-desc">Client-side search engine built on the Wikipedia API for focused academic research. Exact-match filtering, newest-first sorting, live suggestions, and a Norse mythology-inspired interface. Built to replace noisy general-purpose search for students who need depth over distraction.</div>
+          <div class="project-links">
+            <a href="[YOUTUBE_UNLISTED_LINK]" class="project-link" target="_blank">▶ Watch Demo</a>
+            <a href="[GITHUB_LINK]" class="project-link secondary" target="_blank">GitHub</a>
+          </div>
         </div>
         <div class="project-meta">
           <div class="project-year">2025</div>
@@ -764,11 +1017,13 @@
             <span class="tag">Arabic Tech</span>
           </div>
           <div class="project-name">KTBM — Arabic Tech Content Channel</div>
-          <div class="project-desc">Tech content in Arabic no fluff, no philosophy. Publishing 3× per week covering AI, semiconductors, on-device AI, NPUs, and battery-aware design. 200K+ YouTube views, 8K+ LinkedIn reads, 350+ reactions. One of the few Arabic-language channels breaking down silicon and AI hardware for a general audience.</div>
+          <div class="project-desc">Tech content in Arabic — no fluff. Publishing on AI, semiconductors, on-device AI, NPUs, and battery-aware design. 200K+ YouTube views, 8K+ LinkedIn reads, 350+ reactions. One of the few Arabic-language channels breaking down silicon and AI hardware for a general audience.</div>
+          <div class="project-links">
+            <a href="https://www.youtube.com/@K-TBM" class="project-link" target="_blank">↗ Watch on YouTube</a>
+          </div>
         </div>
         <div class="project-meta">
-          <div class="project-year" style="margin-bottom:8px">2025–Now</div>
-          <a href="https://www.youtube.com/@K-TBM" target="_blank" style="font-family:'DM Mono',monospace;font-size:0.7rem;color:var(--accent);text-decoration:none;letter-spacing:0.04em;">↗ Watch</a>
+          <div class="project-year">2025–Now</div>
         </div>
       </div>
 
@@ -781,7 +1036,10 @@
             <span class="tag">Data Automation</span>
           </div>
           <div class="project-name">Municipal Data System — Chhime Municipality</div>
-          <div class="project-desc"> Digitised a fully paper-based beneficiary management system for a Lebanese municipality. Reduced manual data-entry errors by ~90% and saved 72+ hours of processing time. Built intake forms, validation workflows, ID assignment logic, and Looker Studio dashboards. Trained non-technical municipal staff to operate the system independently.</div>
+          <div class="project-desc">Digitized a fully paper-based beneficiary management system for a Lebanese municipality. Reduced manual data-entry errors by ~90% and saved 72+ hours of processing time. Intake forms, validation workflows, ID assignment logic, and Looker Studio dashboards — with staff training included.</div>
+          <div class="project-links">
+            <a href="[YOUTUBE_UNLISTED_LINK]" class="project-link" target="_blank">▶ Watch Demo</a>
+          </div>
         </div>
         <div class="project-meta">
           <div class="project-year">2025</div>
@@ -804,7 +1062,7 @@
       </div>
       <div class="cred-card">
         <div class="cred-issuer">Cisco</div>
-        <div class="cred-name">CCNA v7 — Networking</div>
+        <div class="cred-name">CCNA v7 — Networking Fundamentals</div>
       </div>
       <div class="cred-card">
         <div class="cred-issuer">Google / Coursera</div>
@@ -868,6 +1126,28 @@
     </div>
   </div>
 </footer>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const mobileMenu = document.getElementById('mobileMenu');
+
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+    document.body.style.overflow = mobileMenu.classList.contains('open') ? 'hidden' : '';
+  });
+
+  function closeMenu() {
+    hamburger.classList.remove('open');
+    mobileMenu.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  // Close on escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+</script>
 
 </body>
 </html>
